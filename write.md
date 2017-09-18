@@ -1,6 +1,5 @@
-# 笔试题目
-
-@[笔试]
+# 前端面试题目
+@[面试]
 
 --------------------------
 
@@ -8,80 +7,75 @@
 
 --------------------------
 
-## Ajax
+## 说一下你对 CSS 盒模型的理解？
 
-> AJAX 是一种在无需重新加载整个网页的情况下，能够更新部分网页的技术。
-> AJAX = 异步 JavaScript 和 XML。
+- 盒模型包括的属性
+- box-sizing
 
-### 1. 创建 XMLHttpRequest 对象的语法
+## 对于一个未知宽高的盒子，如何让它水平垂直居中于父元素？
 
-``` javascript
-var xmlhttp;
-if(window.XMLHttpRequest){
-	// for IE7+, Firefox, Chrome, Opera, Safari
-	xmlhttp = window.XMLHttpRequest();
-}else{
-	// code for IE6, IE5
-	xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-}
-```
+- table
+- JS 计算
+- transform
+- flexbox
+- grid
 
-### 2. 向服务器发送请求
+## 简单说下 flexbox 布局？
 
-> open() 和 send() 方法用于向服务器发送请求 
+- flexbox 布局解决的问题（未出现之前，布局的缺陷）
+- flexbox 的兼容性
+- flexbox 的局限（引出 grid 布局）
 
-``` javascript
-xmlhttp.open("GET","test1.txt",true);
-xmlhttp.send();
-```
+## 说下你对 CSS3 动画的理解？
 
-``` javascript
-/**
-* 规定请求的类型、URL 以及是否异步处理请求。
-* method：请求的类型；GET 或 POST
-* url：文件在服务器上的位置
-* async：true（异步）或 false（同步）
-*/
-open(method,url,async)
-```
+- transition
+- animation
+- 动画性能（transform、3D等）
 
-``` javascript
-/**
-* 将请求发送到服务器。
-* string：仅用于 POST 请求
-*/
-send(string)
-```
+## 简单说下你对一些小图标的处理？
 
-### 3. 服务器的响应
+- 雪碧图
+- iconfont
+- svg sprites
 
-> XMLHttpRequest 对象的 responseText 或 responseXML 属性可获得服务器的响应
-> responseText： 获得字符串形式的响应数据。
-> responseXML：获得 XML 形式的响应数据。
+## 浏览器缓存的头字段有哪些，缓存的逻辑是怎样的？
 
-### 4. onreadystatechange 事件
+- 缓存
+- 引申：200 和 304 的区别
 
-> onreadystatechange	
->> 存储函数（或函数名），每当 readyState 属性改变时，就会调用该函数。
+## 创建一个有十行十列的表格（不准 innerHTML），并给每个单元格绑定事件。
 
-> readyState	
->> 存有 XMLHttpRequest 的状态。从 0 到 4 发生变化。
->> 0. 请求未初始化
->> 1. 服务器连接已建立
->> 2. 请求已接收
->> 3. 请求处理中
->> 4. 请求已完成，且响应已就绪
+- DOM 操作
+- 事件委托
 
-> status	
-> >200: "OK"
->> 404: 未找到页面
+## 写个 Person 类，属性 name 公有，属性 age 私有；写个 Student 继承 Person，并有自己的公有属性 grade 和公有方法 getTeacher。
 
-``` javascript
-xmlhttp.onreadystatechange = function(){
-	if (xmlhttp.readyState ==4 && xmlhttp.status == 200){
-		console.log(xmlhttp.responseText);
-	}
-}
-```
+- 面向对象（变量，方法，私有/公有，继承...）
 
+## HTTP 常见的状态码，301，302 等；POST 和 GET 的区别。
 
+- 网络（状态码，请求方法...）
+
+## 有没有碰到过跨域请求，你是怎么处理的？
+
+- 跨域（jsonp，CORS...）
+
+## 写个正则匹配下邮箱、手机号
+
+- 正则
+
+## 接触过哪些构建工具；现在用的是啥；写出你现在项目的目录结构，并解释构建工具的运作方式；有否写过插件？
+
+- 构建（fis3、gulp、webpack...）
+
+## 你写代码的时候是怎么考虑安全因素的？
+
+- 安全（xss、csrf...）
+
+## 给你的代码写过单元测试吗；为了更好地单测你是怎么组织你的代码的；我这里有份代码，你看怎么给每个函数写个单测？
+
+- 单元测试（Mocha...）
+
+## 有没有做过性能优化，都有哪些手段？
+
+- 雅虎35条
