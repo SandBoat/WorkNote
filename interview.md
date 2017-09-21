@@ -7,6 +7,67 @@
 
 --------------------------
 
+## this指向
+### 普通this
+
+- 总是指向调用者
+- 在默认情况(非严格模式下,未使用 'use strict'),没找到直接调用者,则this指的是 window
+- 在严格模式下,没有直接调用者的函数中的this是 undefined
+- 使用call,apply,bind(ES5新增)绑定的,this指的是 绑定的对象
+
+### 箭头函数this
+
+- 默认指向在定义它时,它所处的对象(宿主对象),而不是执行时的对象, 定义它的时候,可能环境是window
+
+### 使用场景
+
+``` javascript
+var People = {
+    age:1,
+    sayAge:function(){
+        console.log(this.age);
+    },
+    sayAge2:() => {
+        console.log(this.age);
+    }
+}
+
+var p = People.sayAge;
+People.sayAge();    // 1
+p();                // undefined
+People.sayAge2();   // undefined
+```
+``` javascript
+window.val = 1;
+var obj = {
+    val: 2,
+    dbl: function() {
+        this.val *= 2;
+        val *= 2;
+        console.log(val);
+        console.log(this.val);
+    }
+};
+
+obj.dbl();  // 2 4
+var func = obj.dbl;
+func(); // 8 8
+```
+``` javascript
+var obj = {
+  say: function () {
+    var f1 = function () {
+      console.log(this);    // window, f1调用时,没有宿主对象,默认是window
+      setTimeout(() => {
+        console.log(this); // window
+      })
+    };
+    f1();
+  }
+}
+obj.say()
+```
+
 ## 说一下你对 CSS 盒模型的理解？
 
 - 盒模型包括的属性
