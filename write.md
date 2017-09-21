@@ -1,5 +1,5 @@
-# 前端面试题目
-@[面试]
+# 前端笔试题目
+@[笔试]
 
 --------------------------
 
@@ -7,75 +7,123 @@
 
 --------------------------
 
-## 说一下你对 CSS 盒模型的理解？
+## Ajax
 
-- 盒模型包括的属性
-- box-sizing
+> AJAX 是一种在无需重新加载整个网页的情况下，能够更新部分网页的技术。
+> AJAX = 异步 JavaScript 和 XML。
 
-## 对于一个未知宽高的盒子，如何让它水平垂直居中于父元素？
+### 1. 创建 XMLHttpRequest 对象的语法
 
-- table
-- JS 计算
-- transform
-- flexbox
-- grid
+``` javascript
+var xmlhttp;
+if(window.XMLHttpRequest){
+    // for IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttp = window.XMLHttpRequest();
+}else{
+    // code for IE6, IE5
+    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+}
+```
 
-## 简单说下 flexbox 布局？
+### 2. 向服务器发送请求
 
-- flexbox 布局解决的问题（未出现之前，布局的缺陷）
-- flexbox 的兼容性
-- flexbox 的局限（引出 grid 布局）
+> open() 和 send() 方法用于向服务器发送请求 
 
-## 说下你对 CSS3 动画的理解？
+``` javascript
+xmlhttp.open("GET","test1.txt",true);
+xmlhttp.send();
+```
 
-- transition
-- animation
-- 动画性能（transform、3D等）
+``` javascript
+/**
+* 规定请求的类型、URL 以及是否异步处理请求。
+* method：请求的类型；GET 或 POST
+* url：文件在服务器上的位置
+* async：true（异步）或 false（同步）
+*/
+open(method,url,async)
+```
 
-## 简单说下你对一些小图标的处理？
+``` javascript
+/**
+* 将请求发送到服务器。
+* string：仅用于 POST 请求
+*/
+send(string)
+```
 
-- 雪碧图
-- iconfont
-- svg sprites
+### 3. 服务器的响应
 
-## 浏览器缓存的头字段有哪些，缓存的逻辑是怎样的？
+> XMLHttpRequest 对象的 responseText 或 responseXML 属性可获得服务器的响应
+> responseText： 获得字符串形式的响应数据。
+> responseXML：获得 XML 形式的响应数据。
 
-- 缓存
-- 引申：200 和 304 的区别
+### 4. onreadystatechange 事件
 
-## 创建一个有十行十列的表格（不准 innerHTML），并给每个单元格绑定事件。
+> onreadystatechange    
+>> 存储函数（或函数名），每当 readyState 属性改变时，就会调用该函数。
 
-- DOM 操作
-- 事件委托
+> readyState    
+>> 存有 XMLHttpRequest 的状态。从 0 到 4 发生变化。
+>> 0. 请求未初始化
+>> 1. 服务器连接已建立
+>> 2. 请求已接收
+>> 3. 请求处理中
+>> 4. 请求已完成，且响应已就绪
 
-## 写个 Person 类，属性 name 公有，属性 age 私有；写个 Student 继承 Person，并有自己的公有属性 grade 和公有方法 getTeacher。
+> status    
+> >200: "OK"
+>> 404: 未找到页面
 
-- 面向对象（变量，方法，私有/公有，继承...）
+``` javascript
+xmlhttp.onreadystatechange = function(){
+    if (xmlhttp.readyState ==4 && xmlhttp.status == 200){
+        console.log(xmlhttp.responseText);
+    }
+}
+```
 
-## HTTP 常见的状态码，301，302 等；POST 和 GET 的区别。
+## jquery bind() live() delegate() on() 区别
+### 介绍
+- bind(type,[data],fn) 为每个匹配元素的特定事件绑定事件处理函数
+- live(type,[data],fn) 给所有匹配的元素附加一个事件处理函数，即使这个元素是以后再添加进来的
+- delegate(selector,[type],[data],fn) 指定的元素（属于被选元素的子元素）添加一个或多个事件处理程序，并规定当这些事件发生时运行的函数
+- on(events,[selector],[data],fn) 在选择元素上绑定一个或多个事件的事件处理函数
+### 区别
+- .bind()是直接绑定在元素上
+- .live()则是通过冒泡的方式来绑定到元素上的。更适合列表类型的，绑定到document DOM节点上。和.bind()的优势是支持动态数据。
+- .delegate()则是更精确的小范围使用事件代理，性能优于.live()
+- on()则是最新的1.9版本整合了之前的三种方式的新事件绑定机制
 
-- 网络（状态码，请求方法...）
+## 浏览器内核
+- Trident内核：代表作品是IE
+- Gecko内核：代表作品是Firefox
+- Webkit内核：代表作品是Safari、曾经的Chrome
+- Presto内核：代表作品是Opera，Presto是由Opera Software开发的浏览器排版引擎，它是世界公认最快的渲染速度的引擎。在13年之后，Opera宣布加入谷歌阵营，弃用了
+- Blink内核：由Google和Opera Software开发的浏览器排版引擎，2013年4月发布。现在Chrome内核是Blink
 
-## 有没有碰到过跨域请求，你是怎么处理的？
+## contact、String
 
-- 跨域（jsonp，CORS...）
+``` javascript
+var a = [1,2,3];
+var b = a.contact([4,5]);// a:[1,2,3] b:[1,2,3,4,5]
+```
 
-## 写个正则匹配下邮箱、手机号
+## typeof String null
+``` javascript
+var s = new String(); // typeof s === "object"
+var n = null; // typeof n === "object"
+```
 
-- 正则
+## :link :vistited :hover :active 顺序
 
-## 接触过哪些构建工具；现在用的是啥；写出你现在项目的目录结构，并解释构建工具的运作方式；有否写过插件？
-
-- 构建（fis3、gulp、webpack...）
-
-## 你写代码的时候是怎么考虑安全因素的？
-
-- 安全（xss、csrf...）
-
-## 给你的代码写过单元测试吗；为了更好地单测你是怎么组织你的代码的；我这里有份代码，你看怎么给每个函数写个单测？
-
-- 单元测试（Mocha...）
-
-## 有没有做过性能优化，都有哪些手段？
-
-- 雅虎35条
+- :link 未被访问的链接样式
+- :vistited 已访问页面的的链接样式
+- :hover  鼠标指针浮动到链接样式
+- :active 点击链接时的样式
+``` css
+a:link { color: #aaa; } 
+a:visited { color: #f30000; } 
+a:hover { color: #eee; } 
+a:active { color: #d312e8; }
+```
